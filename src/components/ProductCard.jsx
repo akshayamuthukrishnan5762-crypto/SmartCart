@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import "./ProductCard.css";
+import axios from "axios";
+
+
+
 
 function ProductCard({ product, cart, setCart }) {
   return (
@@ -61,6 +65,7 @@ function ProductCard({ product, cart, setCart }) {
       >
         Add to Cart
       </button>
+      
     </div>
   );
 }

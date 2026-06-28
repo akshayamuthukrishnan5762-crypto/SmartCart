@@ -1,40 +1,30 @@
-import products from "../data/products";
+
+import{useState,useEffect}from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import toast from "react-hot-toast";
 import "./ProductDetails.css";
-import riceImg from "../assets/rice.jpeg";
-import milkImg from "../assets/milk.jpeg";
-import breadImg from "../assets/bread.jpeg";
+
 
 function ProductDetails({ cart, setCart }) {
   const { id } = useParams();
+const [product, setProduct] = useState(null);
 
-  const products = {
-    1: {
-      name: "Rice",
-      price: 50,
-      image: riceImg,
-      discount:20,
-      description: "Premium quality rice for daily cooking.",
-      
-    },
-    2: {
-      name: "Milk",
-      price: 30,
-      image: milkImg,
-      discount:15,
-      description: "Fresh and healthy cow milk.",
-    },
-    3: {
-      name: "Bread",
-      price: 40,
-      image: breadImg,
-      discount:10,
-      description: "Soft and fresh bakery bread.",
-    },
-  };
+useEffect(() => {
+  axios
+    .get(`http://localhost:5000/products/${id}`)
+    .then((res) => {
+      setProduct(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, [id]);
+  
 
-  const product = products[id];
+  if (!product) {
+  return <h2>Loading...</h2>;
+}
 
   return (
     <div
